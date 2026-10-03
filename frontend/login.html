@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA | Student Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #172554, #1e3a8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            width: 950px;
+            max-width: 92%;
+            min-height: 560px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+        }
+
+        .left {
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(
+                145deg,
+                rgba(37,99,235,0.85),
+                rgba(30,64,175,0.65)
+            );
+        }
+
+        .logo {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #dbeafe;
+            margin-bottom: 40px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #eff6ff;
+            font-size: 15px;
+        }
+
+        .icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .right {
+            background: #ffffff;
+            color: #0f172a;
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 35px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
+        }
+
+        #message {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        .demo {
+            margin-top: 25px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media(max-width: 750px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                display: none;
+            }
+
+            .right {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT -->
+
+    <div class="left">
+
+        <div class="logo">NEXORA</div>
+
+        <div class="tagline">
+            AI-Powered Student Support,
+            Academy Management &
+            Complaint Resolution
+        </div>
+
+        <div class="features">
+
+            <div class="feature">
+                <div class="icon">🎓</div>
+                <span>Manage your courses and learning progress</span>
+            </div>
+
+            <div class="feature">
+                <div class="icon">🤖</div>
+                <span>Get AI-assisted student support</span>
+            </div>
+
+            <div class="feature">
+                <div class="icon">📊</div>
+                <span>Track attendance and academic progress</span>
+            </div>
+
+            <div class="feature">
+                <div class="icon">🎫</div>
+                <span>Submit and track support requests</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT -->
+
+    <div class="right">
+
+        <h2>Welcome back</h2>
+
+        <p class="subtitle">
+            Sign in to access your student portal
+        </p>
+
+        <div class="input-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+            >
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+            >
+
+        </div>
+
+
+        <button onclick="login()">
+            Sign In →
+        </button>
+
+
+        <div id="message"></div>
+
+
+        <div class="demo">
+            Demo login: <b>string</b> / <b>string</b>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function login() {
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    if (!email || !password) {
+
+        message.style.color = "#dc2626";
+
+        message.innerText =
+            "Please enter email and password.";
+
+        return;
+    }
+
+
+    message.style.color = "#64748b";
+
+    message.innerText =
+        "Checking login...";
+
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/login",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        console.log("Login response:", data);
+
+
+        if (data.student) {
+
+            localStorage.setItem(
+                "student_id",
+                String(data.student.id)
+            );
+
+            localStorage.setItem(
+                "student_name",
+                data.student.name
+            );
+
+
+            console.log(
+                "Saved student ID:",
+                localStorage.getItem("student_id")
+            );
+
+
+            message.style.color = "#16a34a";
+
+            message.innerText =
+                "Login successful!";
+
+
+            setTimeout(() => {
+
+                window.location.href = "index.html";
+
+            }, 700);
+
+
+        } else {
+
+            message.style.color = "#dc2626";
+
+            message.innerText =
+                data.message ||
+                "Invalid email or password.";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error("Login error:", error);
+
+        message.style.color = "#dc2626";
+
+        message.innerText =
+            "Unable to connect to server.";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

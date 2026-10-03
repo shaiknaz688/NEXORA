@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXORA | Student Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 245px;
+            background: #0f172a;
+            color: white;
+            padding: 25px 18px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 0 12px;
+            margin-bottom: 40px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            padding: 13px 15px;
+            border-radius: 10px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+            background: #dc2626;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .logout:hover {
+            background: #b91c1c;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+            width: calc(100% - 245px);
+            padding: 28px 35px;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .topbar h2 {
+            font-size: 24px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 8px 14px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #dbeafe;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .stat-card p {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card h2 {
+            font-size: 27px;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+            scroll-margin-top: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+        }
+
+        /* COURSE */
+
+        .course {
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .course-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .course-name {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .course-code {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            height: 9px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 10px;
+        }
+
+        .course-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* SCHEDULE */
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .schedule-table th {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* SUPPORT */
+
+        .support-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .support-message {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            background: #e2e8f0;
+        }
+
+        .high {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .pending {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* AI BUTTON */
+
+        .ai-button {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 16px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(37,99,235,0.35);
+        }
+
+        .ai-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* MODAL */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15,23,42,0.65);
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal-box {
+            width: 500px;
+            max-width: 90%;
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            resize: none;
+            font-size: 14px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .submit-support {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border-radius: 10px;
+            margin-top: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 22px;
+            color: #64748b;
+        }
+
+        #supportResult {
+            margin-top: 18px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 1000px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 750px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 20px 10px;
+            }
+
+            .logo {
+                font-size: 17px;
+                padding: 0;
+                text-align: center;
+            }
+
+            .menu-item {
+                font-size: 0;
+                text-align: center;
+            }
+
+            .menu-item::first-letter {
+                font-size: 20px;
+            }
+
+            .logout {
+                font-size: 0;
+            }
+
+            .main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            NEXORA
+        </div>
+
+        <div class="menu">
+
+            <div class="menu-item active" onclick="goToSection('dashboardSection', this)">
+                🏠 Dashboard
+            </div>
+
+            <div class="menu-item" onclick="goToSection('coursesSection', this)">
+                📚 My Courses
+            </div>
+
+            <div class="menu-item" onclick="goToSection('scheduleSection', this)">
+                📅 Schedule
+            </div>
+
+            <div class="menu-item" onclick="goToSection('supportSection', this)">
+                🎫 Support
+            </div>
+
+        </div>
+
+        <div class="logout" onclick="logout()">
+            Logout
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar" id="dashboardSection">
+
+            <h2>Student Portal</h2>
+
+            <div class="profile">
+
+                <div class="avatar" id="avatar">
+                    S
+                </div>
+
+                <div>
+                    <strong id="profileName">Student</strong>
+                    <div style="font-size:12px;color:#64748b;">
+                        Student
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <h1 id="welcomeName">
+                Welcome back!
+            </h1>
+
+            <p>
+                Here's your academic overview and support information.
+            </p>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <p>Enrolled Courses</p>
+
+                <h2 id="courseCount">
+                    0
+                </h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <p>Average Progress</p>
+
+                <h2 id="averageProgress">
+                    0%
+                </h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <p>Attendance</p>
+
+                <h2 id="averageAttendance">
+                    0%
+                </h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <p>Support Requests</p>
+
+                <h2 id="supportCount">
+                    0
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- COURSES -->
+
+        <div class="section" id="coursesSection">
+
+            <div class="section-header">
+
+                <h2>
+                    My Courses
+                </h2>
+
+            </div>
+
+            <div id="coursesContainer">
+                Loading courses...
+            </div>
+
+        </div>
+
+
+        <!-- SCHEDULE -->
+
+        <div class="section" id="scheduleSection">
+
+            <div class="section-header">
+
+                <h2>
+                    Class Schedule
+                </h2>
+
+            </div>
+
+            <div id="scheduleContainer">
+                Loading schedule...
+            </div>
+
+        </div>
+
+
+        <!-- SUPPORT -->
+
+        <div class="section" id="supportSection">
+
+            <div class="section-header">
+
+                <h2>
+                    Support Requests
+                </h2>
+
+            </div>
+
+            <div id="supportContainer">
+                Loading support requests...
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- AI SUPPORT BUTTON -->
+
+<button class="ai-button" onclick="openSupport()">
+    🤖 AI Support
+</button>
+
+
+<!-- SUPPORT MODAL -->
+
+<div class="modal" id="supportModal">
+
+    <div class="modal-box">
+
+        <span class="close" onclick="closeSupport()">
+            ×
+        </span>
+
+        <h2>
+            AI Student Support
+        </h2>
+
+        <p class="modal-subtitle">
+            Describe your problem and NEXORA will analyze your request.
+        </p>
+
+        <textarea
+            id="supportMessage"
+            placeholder="Example: I paid for my course yesterday but my enrollment is not showing..."
+        ></textarea>
+
+        <button
+            class="submit-support"
+            onclick="submitSupport()"
+        >
+            Analyze & Submit Request
+        </button>
+
+        <div id="supportResult"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const studentId = localStorage.getItem("student_id");
+
+
+/* CHECK LOGIN */
+
+if (!studentId) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* SIDEBAR NAVIGATION */
+
+function goToSection(sectionId, clickedItem) {
+
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+
+        section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+    const menuItems =
+        document.querySelectorAll(".menu-item");
+
+    menuItems.forEach(item => {
+
+        item.classList.remove("active");
+
+    });
+
+    clickedItem.classList.add("active");
+
+}
+
+
+/* LOAD DASHBOARD */
+
+async function loadDashboard() {
+
+    try {
+
+        const response = await fetch(
+            `https://nexora-2-9l03.onrender.com/students/${studentId}/dashboard`
+        );
+
+        const data = await response.json();
+
+        if (data.message === "Student not found") {
+
+            logout();
+            return;
+
+        }
+
+
+        /* STUDENT */
+
+        const name = data.student.name;
+
+        document.getElementById("welcomeName").innerText =
+            "Welcome back, " + name + "!";
+
+        document.getElementById("profileName").innerText =
+            name;
+
+        document.getElementById("avatar").innerText =
+            name.charAt(0).toUpperCase();
+
+
+        /* COURSES */
+
+        const courses = data.courses;
+
+        document.getElementById("courseCount").innerText =
+            courses.length;
+
+
+        let totalProgress = 0;
+        let totalAttendance = 0;
+
+        let coursesHTML = "";
+
+        if (courses.length === 0) {
+
+            coursesHTML = `
+                <p style="color:#64748b;">
+                    No courses enrolled.
+                </p>
+            `;
+
+        } else {
+
+            courses.forEach(course => {
+
+                const id = course[0];
+                const name = course[1];
+                const code = course[2];
+                const credits = course[3];
+                const progress = course[4] || 0;
+                const attendance = course[5] || 0;
+
+                totalProgress += progress;
+                totalAttendance += attendance;
+
+                coursesHTML += `
+
+                    <div class="course">
+
+                        <div class="course-top">
+
+                            <div>
+                                <div class="course-name">
+                                    ${name}
+                                </div>
+
+                                <div class="course-code">
+                                    ${code} • ${credits} Credits
+                                </div>
+                            </div>
+
+                            <strong>
+                                ${progress}%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-container">
+
+                            <div
+                                class="progress"
+                                style="width:${progress}%"
+                            ></div>
+
+                        </div>
+
+                        <div class="course-info">
+
+                            <span>
+                                Learning Progress
+                            </span>
+
+                            <span>
+                                Attendance: ${attendance}%
+                            </span>
+
+                        </div>
+
+                    </div>
+                `;
+
+            });
+
+        }
+
+        document.getElementById("coursesContainer").innerHTML =
+            coursesHTML;
+
+
+        /* AVERAGES */
+
+        if (courses.length > 0) {
+
+            const avgProgress =
+                Math.round(totalProgress / courses.length);
+
+            const avgAttendance =
+                Math.round(totalAttendance / courses.length);
+
+            document.getElementById("averageProgress").innerText =
+                avgProgress + "%";
+
+            document.getElementById("averageAttendance").innerText =
+                avgAttendance + "%";
+
+        }
+
+
+        /* SCHEDULE */
+
+        const schedule = data.schedule;
+
+        let scheduleHTML = "";
+
+        if (schedule.length === 0) {
+
+            scheduleHTML = `
+                <p style="color:#64748b;">
+                    No classes scheduled.
+                </p>
+            `;
+
+        } else {
+
+            scheduleHTML = `
+
+                <table class="schedule-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Course</th>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Room</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+            `;
+
+            schedule.forEach(item => {
+
+                scheduleHTML += `
+
+                    <tr>
+
+                        <td>${item[1]}</td>
+
+                        <td>${item[2]}</td>
+
+                        <td>
+                            ${item[3]} - ${item[4]}
+                        </td>
+
+                        <td>${item[5]}</td>
+
+                    </tr>
+
+                `;
+
+            });
+
+            scheduleHTML += `
+                    </tbody>
+                </table>
+            `;
+
+        }
+
+        document.getElementById("scheduleContainer").innerHTML =
+            scheduleHTML;
+
+
+        /* SUPPORT REQUESTS */
+
+        const requests = data.support_requests;
+
+        document.getElementById("supportCount").innerText =
+            requests.length;
+
+        let supportHTML = "";
+
+        if (requests.length === 0) {
+
+            supportHTML = `
+                <p style="color:#64748b;">
+                    No support requests yet.
+                </p>
+            `;
+
+        } else {
+
+            requests.forEach(request => {
+
+                const id = request[0];
+                const message = request[1];
+                const category = request[2];
+                const priority = request[3];
+                const department = request[4];
+                const status = request[5];
+
+                let priorityClass = "medium";
+
+                if (priority === "High") {
+                    priorityClass = "high";
+                }
+
+                let statusClass = "pending";
+
+                if (status === "Resolved") {
+                    statusClass = "resolved";
+                }
+
+                supportHTML += `
+
+                    <div class="support-card">
+
+                        <div class="support-message">
+                            ${message}
+                        </div>
+
+                        <div class="badges">
+
+                            <span class="badge">
+                                🎫 Ticket #${id}
+                            </span>
+
+                            <span class="badge">
+                                ${category}
+                            </span>
+
+                            <span class="badge ${priorityClass}">
+                                ${priority}
+                            </span>
+
+                            <span class="badge">
+                                ${department}
+                            </span>
+
+                            <span class="badge ${statusClass}">
+                                ${status}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+        document.getElementById("supportContainer").innerHTML =
+            supportHTML;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        document.getElementById("coursesContainer").innerHTML =
+            `<p style="color:#dc2626;">Unable to load dashboard.</p>`;
+
+    }
+
+}
+
+
+/* OPEN SUPPORT */
+
+function openSupport() {
+
+    document.getElementById("supportModal").style.display =
+        "flex";
+
+}
+
+
+/* CLOSE SUPPORT */
+
+function closeSupport() {
+
+    document.getElementById("supportModal").style.display =
+        "none";
+
+    document.getElementById("supportResult").innerHTML =
+        "";
+
+    document.getElementById("supportMessage").value =
+        "";
+
+}
+
+
+/* SUBMIT SUPPORT */
+
+async function submitSupport() {
+
+    const message =
+        document.getElementById("supportMessage").value.trim();
+
+    const result =
+        document.getElementById("supportResult");
+
+
+    if (!message) {
+
+        result.innerHTML = `
+            <p style="color:#dc2626;">
+                Please describe your problem.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+        <p style="color:#64748b;">
+            Analyzing your request...
+        </p>
+    `;
+
+
+    try {
+
+        const response = await fetch(
+            "https://nexora-2-9l03.onrender.com/support",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    student_id: Number(studentId),
+                    message: message
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        result.innerHTML = `
+
+            <div
+                style="
+                    margin-top:15px;
+                    padding:15px;
+                    background:#f8fafc;
+                    border-radius:10px;
+                "
+            >
+
+                <strong>
+                    Request Submitted ✓
+                </strong>
+
+                <p style="margin-top:10px;">
+                    Ticket ID: #${data.request_id}
+                </p>
+
+                <p>
+                    Category: ${data.category}
+                </p>
+
+                <p>
+                    Priority: ${data.priority}
+                </p>
+
+                <p>
+                    Department: ${data.department}
+                </p>
+
+                <p>
+                    Status: ${data.status}
+                </p>
+
+            </div>
+
+        `;
+
+
+        /* REFRESH DASHBOARD */
+
+        setTimeout(() => {
+
+            closeSupport();
+            loadDashboard();
+
+        }, 1800);
+
+
+    }
+
+    catch (error) {
+
+        result.innerHTML = `
+            <p style="color:#dc2626;">
+                Unable to submit request.
+            </p>
+        `;
+
+    }
+
+}
+
+
+/* LOGOUT */
+
+function logout() {
+
+    localStorage.removeItem("student_id");
+    localStorage.removeItem("student_name");
+
+    window.location.href = "login.html";
+
+}
+
+
+/* LOAD */
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>
